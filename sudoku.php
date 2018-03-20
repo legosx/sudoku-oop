@@ -4,10 +4,10 @@ class ArrayProvider
 {
     public $data = [];
 
-    public function __construct($size)
+    public function __construct($rows, $cols)
     {
-        for ($i = 0; $i < $size; $i++) {
-            $this->data[] = array_fill(0, $size, null);
+        for ($i = 0; $i < $rows; $i++) {
+            $this->data[] = array_fill(0, $cols, null);
         }
     }
 
@@ -29,6 +29,16 @@ class ArrayProvider
 
 class SudokuMap extends ArrayProvider
 {
+    public function __construct()
+    {
+        parent::__construct(9, 9);
+    }
+
+    public function getSize()
+    {
+        return 9;
+    }
+
     private function getLine($row = null, $col = null)
     {
         $result = [];
@@ -167,11 +177,21 @@ class SudokuChecker
 
     private function isValidList($list)
     {
-        return count(array_unique(array_filter($list))) == count($list);
+        $size = $this->getMap()->getSize();
+        if ((count($list) != $size) || (count(array_unique($list)) != $size)) {
+            return false;
+        }
+
+        sort($list);
+        if (($list[0] != 1) || ($list[$size - 1] != 9)) {
+            return false;
+        }
+
+        return true;
     }
 }
 
-$map = new SudokuMap(9);
+$map = new SudokuMap;
 $map->fill([
     [1, 8, 2, 5, 4, 3, 6, 9, 7],
     [9, 6, 5, 1, 7, 8, 3, 4, 2],
