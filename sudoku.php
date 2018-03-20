@@ -4,10 +4,10 @@ class ArrayProvider
 {
     public $data = [];
 
-    public function __construct($rows, $cols)
+    public function __construct($size)
     {
-        for ($i = 0; $i < $rows; $i++) {
-            $this->data[] = array_fill(0, $cols, null);
+        for ($i = 0; $i < $size; $i++) {
+            $this->data[] = array_fill(0, $size, null);
         }
     }
 
@@ -171,7 +171,7 @@ class SudokuChecker
     }
 }
 
-$map = new SudokuMap(9, 9);
+$map = new SudokuMap(9);
 $map->fill([
     [1, 8, 2, 5, 4, 3, 6, 9, 7],
     [9, 6, 5, 1, 7, 8, 3, 4, 2],
