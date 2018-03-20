@@ -155,7 +155,7 @@ class SudokuChecker
             for ($col_start = 1; $col_start <= ($size - 3) + 1; $col_start += 3) {
                 $row_end = $row_start + 2;
                 $col_end = $col_start + 2;
-                $list = $map->getSquareList($row_start, $col_start, $row_start + 2, $col_start + 2);
+                $list = $map->getSquareList($row_start, $col_start, $row_end, $col_end);
                 if (!$this->isValidList($list)) {
                     throw new SudokuCheckerSquareError($row_start, $col_start, $row_end, $col_end);
                 }
